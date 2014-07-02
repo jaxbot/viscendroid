@@ -8,26 +8,42 @@ import android.webkit.WebViewClient;
 import android.webkit.HttpAuthHandler;
 
 import android.content.SharedPreferences;
+import android.content.Context;
+import android.content.Intent;
+
+import android.app.ActionBar;
+import android.view.MenuInflater;
+import android.view.Menu;
+import android.view.MenuItem;
 
 public class MainActivity extends Activity
 {
     public static final String PREFS_NAME = "viscensettings";
     private WebView webview;
+    Context context;
 
     /** Called when the activity is first created. */
     @Override
     public void onCreate(Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
+        setContentView(R.layout.main);
 
-        webview = new WebView(this);
+        webview = (WebView) findViewById(R.id.webview);
         webview.setWebViewClient(new AuthWebViewClient());
         webview.getSettings().setJavaScriptEnabled(true);
         webview.getSettings().setLoadWithOverviewMode(true);
         webview.getSettings().setUseWideViewPort(true);
         webview.loadUrl("http://me.jaxbot.me/viscen/?c=" + System.currentTimeMillis());
 
-        setContentView(webview);
+        context = this;
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.menu, menu);
+        return true;
     }
 
     @Override
@@ -36,11 +52,23 @@ public class MainActivity extends Activity
 
         webview.loadUrl("about:blank");
     }
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.action_settings:
+
+                Intent intent = new Intent(this, SettingsActivity.class);
+                startActivity(intent);
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
+    }
 
     private class AuthWebViewClient extends WebViewClient {
         @Override
         public void onReceivedHttpAuthRequest(WebView view, HttpAuthHandler handler, String host, String realm) {
-            SharedPreferences settings = getSharedPreferences(PREFS_NAME, 0);
+            SharedPreferences settings = context.getSharedPreferences(MainActivity.PREFS_NAME, 0);
             handler.proceed(settings.getString("username", ""), settings.getString("password", ""));
         }
     }
