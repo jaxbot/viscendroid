@@ -9,10 +9,7 @@ import android.webkit.HttpAuthHandler;
 
 import android.content.SharedPreferences;
 import android.content.Context;
-
-import android.app.ActionBar;
-import android.view.MenuInflater;
-import android.view.Menu;
+import android.widget.EditText;
 
 public class SettingsActivity extends Activity
 {
@@ -25,12 +22,18 @@ public class SettingsActivity extends Activity
     }
 
     @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        return true;
-    }
-
-    @Override
     protected void onStop() {
+        SharedPreferences settings = getSharedPreferences(MainActivity.PREFS_NAME, 0);
+        SharedPreferences.Editor editor = settings.edit();
+
+        String username = ((EditText) findViewById(R.id.username_txt)).getText().toString();
+        String password = ((EditText) findViewById(R.id.password_txt)).getText().toString();
+
+        editor.putString("username", username);
+        editor.putString("password", password);
+
+        editor.commit();
+
         super.onStop();
     }
 }
