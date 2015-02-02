@@ -1,25 +1,16 @@
 package me.jaxbot.viscendroid;
 
-import android.support.v7.app.ActionBarActivity;
-import android.os.Bundle;
-import android.view.Menu;
-import android.view.MenuItem;
-
 import android.app.Activity;
-import android.os.Bundle;
-
-import android.webkit.WebView;
-import android.webkit.WebViewClient;
-import android.webkit.HttpAuthHandler;
-
-import android.content.SharedPreferences;
 import android.content.Context;
 import android.content.Intent;
-
-import android.app.ActionBar;
-import android.view.MenuInflater;
+import android.content.SharedPreferences;
+import android.os.Bundle;
 import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.webkit.HttpAuthHandler;
+import android.webkit.WebView;
+import android.webkit.WebViewClient;
 
 public class MainActivity extends Activity
 {
@@ -32,7 +23,7 @@ public class MainActivity extends Activity
     public void onCreate(Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.main);
+        setContentView(R.layout.activity_main);
 
         webview = (WebView) findViewById(R.id.webview);
         webview.setWebViewClient(new AuthWebViewClient());
@@ -47,7 +38,7 @@ public class MainActivity extends Activity
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater inflater = getMenuInflater();
-        inflater.inflate(R.menu.menu, menu);
+        inflater.inflate(R.menu.menu_main, menu);
         return true;
     }
 

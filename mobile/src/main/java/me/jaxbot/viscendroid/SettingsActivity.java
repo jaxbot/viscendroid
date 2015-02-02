@@ -1,14 +1,8 @@
 package me.jaxbot.viscendroid;
 
 import android.app.Activity;
-import android.os.Bundle;
-
-import android.webkit.WebView;
-import android.webkit.WebViewClient;
-import android.webkit.HttpAuthHandler;
-
 import android.content.SharedPreferences;
-import android.content.Context;
+import android.os.Bundle;
 import android.widget.EditText;
 
 public class SettingsActivity extends Activity
@@ -18,7 +12,7 @@ public class SettingsActivity extends Activity
     public void onCreate(Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.settings);
+        setContentView(R.layout.activity_settings);
     }
 
     @Override
