@@ -24,7 +24,11 @@ public class MainActivity extends Activity
     {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+    }
 
+    @Override
+    public void onResume()
+    {
         webview = (WebView) findViewById(R.id.webview);
         webview.setWebViewClient(new AuthWebViewClient());
         webview.getSettings().setJavaScriptEnabled(true);
@@ -33,6 +37,8 @@ public class MainActivity extends Activity
         webview.loadUrl("http://me.jaxbot.me/viscen/?c=" + System.currentTimeMillis());
 
         context = this;
+
+        super.onResume();
     }
 
     @Override
@@ -44,9 +50,9 @@ public class MainActivity extends Activity
 
     @Override
     protected void onStop() {
-        super.onStop();
-
         webview.loadUrl("about:blank");
+
+        super.onStop();
     }
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
