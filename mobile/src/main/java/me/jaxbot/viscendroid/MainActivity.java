@@ -4,6 +4,9 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
 import android.view.Menu;
@@ -12,6 +15,8 @@ import android.view.MenuItem;
 import android.webkit.HttpAuthHandler;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
+
+import java.net.URL;
 
 public class MainActivity extends ActionBarActivity
 {
@@ -39,6 +44,23 @@ public class MainActivity extends ActionBarActivity
 
         context = this;
 
+        new AsyncTask<Void, Void, Void>() {
+            @Override
+            protected Void doInBackground(Void... params) {
+                try {
+                    URL url = new URL("https://jaxbot.me/pics/nissan-leaf-reindeer.jpg");
+                    Bitmap image = BitmapFactory.decodeStream(url.openConnection().getInputStream());
+                    WearAsset.init(context);
+                    System.out.println("sending asset");
+                    WearAsset.sendAsset(image);
+
+                } catch (Exception e) {
+                    System.out.println("boo hoo");
+                    System.out.println(e);
+                }
+                return null;
+            }
+        }.execute(null, null, null);
         super.onResume();
     }
 

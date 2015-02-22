@@ -37,6 +37,7 @@ public class WearAsset {
                     public void onConnectionSuspended(int cause) {
                         Log.d(TAG, "onConnectionSuspended: " + cause);
                     }
+
                 })
                 .addOnConnectionFailedListener(new GoogleApiClient.OnConnectionFailedListener() {
                     @Override
@@ -44,22 +45,11 @@ public class WearAsset {
                         Log.d(TAG, "onConnectionFailed: " + result);
                     }
                 })
+
                         // Request access only to the Wearable API
                 .addApi(Wearable.API)
                 .build();
-    }
 
-    @Override
-    public void onDataChanged(DataEventBuffer dataEvents) {
-        for (DataEvent event : dataEvents) {
-            if (event.getType() == DataEvent.TYPE_CHANGED &&
-                    event.getDataItem().getUri().getPath().equals("/image")) {
-                DataMapItem dataMapItem = DataMapItem.fromDataItem(event.getDataItem());
-                Asset profileAsset = dataMapItem.getDataMap().getAsset("profileImage");
-                Bitmap bitmap = loadBitmapFromAsset(profileAsset);
-                // Do something with the bitmap
-            }
-        }
     }
 
     public Bitmap loadBitmapFromAsset(Asset asset) {

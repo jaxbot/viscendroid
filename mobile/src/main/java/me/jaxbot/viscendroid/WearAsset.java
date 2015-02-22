@@ -58,5 +58,6 @@ public class WearAsset {
         PutDataRequest request = PutDataRequest.create("/image");
         request.putAsset("profileImage", asset);
         Wearable.DataApi.putDataItem(mGoogleApiClient, request);
+        System.out.println("Did more stuff");
     }
 }
